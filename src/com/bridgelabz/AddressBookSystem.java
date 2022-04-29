@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -36,7 +37,11 @@ public class AddressBookSystem {
         }
     }
 
-    public void editDetails(String FirstNameSearch) {
+    public void editDetails() {
+        System.out.println("Enter First Name ");
+        String FirstNameSearch = scanner.next();
+        /* String FirstNameSearch to
+         search for first name */
         for (Contacts contacts : contactsDetails) {
             System.out.println("First Name " + contacts.getFirstName());
             if (contacts.getFirstName().equals(FirstNameSearch)) {
@@ -85,33 +90,38 @@ public class AddressBookSystem {
                         String UpdateZipCode = scanner.next();
                         contacts.setZipCode(UpdateZipCode);
                     }
-                    default -> System.out.println("Enter Correct No");
                 }
             } else {
                 System.out.println("Enter Correct Name");
             }
+            System.out.println("Updated Details: ");
+            DisplayDetails();
         }
     }
 
-
+    public void deleteContact(){
+        Iterator<Contacts> removeContact = contactsDetails.iterator();
+        /*  Checking the next element where
+         *   condition holds true till there is single element
+         *   in the List using has next() method
+         */
+        while (removeContact.hasNext()){
+            Contacts nextElement = removeContact.next();
+            removeContact.remove();
+        }
+        System.out.println("Contact is removed!");
+        DisplayDetails();
+    }
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program!");
 
         AddressBookSystem addressbooksystem = new AddressBookSystem();
 
-
             System.out.println("-----------------------------*****-------------------------");
-
             addressbooksystem.addDetails();
             addressbooksystem.DisplayDetails();
-            System.out.println("Enter First Name for which you want to modify info: ");
-            String fName = scanner.nextLine();
-            addressbooksystem.editDetails(fName);
-            System.out.println("After Edit Details Are");
-            addressbooksystem.DisplayDetails();
-            System.out.println("Enter First Name to delete");
-
-
+            addressbooksystem.editDetails();
+            addressbooksystem.deleteContact();
     }
 }
 
