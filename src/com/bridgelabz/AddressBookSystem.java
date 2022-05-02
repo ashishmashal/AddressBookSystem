@@ -13,7 +13,19 @@ public class AddressBookSystem {
     static Scanner scanner = new Scanner(System.in);
     static Contacts contacts = new Contacts();
     static int counter;
+    static HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
+    public static void AddressBook(AddressBookSystem addressBookSystem)
+    {
+        int ans;
+        do{
+            addressBookSystem.MenuOption();
+            hashmap.put("Addressbook",contactsDetails);
+            System.out.println("AddressBook Added" + hashmap + " " );
+            System.out.println("Do You Want To Continue the Press 1");
+            ans = scanner.nextInt();
+        }while(ans == 1 );
 
+    }
     public void addDetails() {
         Contacts contacts = new Contacts();
         System.out.println("Enter First Name");
@@ -115,7 +127,7 @@ public class AddressBookSystem {
         DisplayDetails();
     }
 
-    public void MenuOption(AddressBookSystem addressBookSystem) {
+    public void MenuOption( ) {
         System.out.println("Enter a number to perform action: ");
         int menu, ans;
         do {
@@ -127,25 +139,25 @@ public class AddressBookSystem {
                     /*
                     Adding Contacts in Address Book.
                      */
-                        addressBookSystem.addDetails();
+                        addDetails();
                 case 2 ->
                      /*
                     Editing the Contacts from Address Book.
                      */
-                        addressBookSystem.editDetails();
+                        editDetails();
                 case 3 ->
                      /*
                     Deleting Contacts from Address Book.
                      */
-                        addressBookSystem.DeleteContact();
+                        DeleteContact();
                 case 4 ->
                      /*
                     Display Contacts From Address Book.
                      */
-                       addressBookSystem.DisplayDetails();
+                       DisplayDetails();
                 case 5 -> {
-                    System.out.println("Exiting Code");
-                    System.exit(0);
+                    System.out.println("Exiting The Menu Option");
+                    break;
                 }
 
                 default -> System.out.println("Enter Valid Code");
@@ -160,7 +172,7 @@ public class AddressBookSystem {
 
         AddressBookSystem addressbooksystem = new AddressBookSystem();
             System.out.println("-----------------------------*****-------------------------");
-            addressbooksystem.MenuOption(addressbooksystem);
+            AddressBook(addressbooksystem);
 
     }
 }
