@@ -13,40 +13,49 @@ public class AddressBookSystem {
     static Scanner scanner = new Scanner(System.in);
     static Contacts contacts = new Contacts();
     static int counter;
-    static HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
-    public static void AddressBook(AddressBookSystem addressBookSystem)
-    {
+
+    //  HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
+    public static void AddressBook(AddressBookSystem addressBookSystem) {
+        HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
         int ans;
-        do{
+        do {
+            System.out.println("Enter Name For Address Book");
+            String AddressBookName = scanner.next();
+
             addressBookSystem.MenuOption();
-            hashmap.put("Addressbook",contactsDetails);
-            System.out.println("AddressBook Added" + hashmap + " " );
+            if (hashmap.containsKey(AddressBookName)) {
+                System.out.println("The AddressBook already contains");
+                break;
+            } else {
+                hashmap.put(AddressBookName, contactsDetails);
+            }
+            System.out.println("AddressBook Added" + hashmap + " ");
             System.out.println("Do You Want To Continue the Press 1");
             ans = scanner.nextInt();
-        }while(ans == 1 );
+        } while (ans == 1);
 
     }
     public void addDetails() {
-        Contacts contacts = new Contacts();
-        System.out.println("Enter First Name");
-        contacts.setFirstName(scanner.next());
-        System.out.println("Enter last Name");
-        contacts.setLastName(scanner.next());
-        System.out.println("Enter Email");
-        contacts.setEmail(scanner.next());
-        System.out.println("Enter Address");
-        contacts.setAddress(scanner.next());
-        System.out.println("Enter Contact No");
-        contacts.setContactNo(scanner.next());
-        System.out.println("Enter City");
-        contacts.setCity(scanner.next());
-        System.out.println("Enter State");
-        contacts.setState(scanner.next());
-        System.out.println("Enter Zip Code");
-        contacts.setZipCode(scanner.next());
-        contactsDetails.add(contacts);
-        System.out.println("Contact details added! In Address Book");
-    }
+            Contacts contacts = new Contacts();
+            System.out.println("Enter First Name");
+            contacts.setFirstName(scanner.next());
+            System.out.println("Enter last Name");
+            contacts.setLastName(scanner.next());
+            System.out.println("Enter Email");
+            contacts.setEmail(scanner.next());
+            System.out.println("Enter Address");
+            contacts.setAddress(scanner.next());
+            System.out.println("Enter Contact No");
+            contacts.setContactNo(scanner.next());
+            System.out.println("Enter City");
+            contacts.setCity(scanner.next());
+            System.out.println("Enter State");
+            contacts.setState(scanner.next());
+            System.out.println("Enter Zip Code");
+            contacts.setZipCode(scanner.next());
+            contactsDetails.add(contacts);
+            System.out.println("Contact details added! In Address Book");
+        }
 
     public void DisplayDetails() {
         for (Contacts contactsDetail : contactsDetails) {
@@ -118,12 +127,20 @@ public class AddressBookSystem {
     }
 
     public void DeleteContact(){
+        System.out.println("Enter Last name To Delete Person");
+        String DeleteLastname=scanner.next();
+
         Iterator<Contacts> removeContact = contactsDetails.iterator();
         while (removeContact.hasNext()){
             Contacts nextElement = removeContact.next();
-            removeContact.remove();
+            if(nextElement.getLastName().equals(DeleteLastname)) {
+                removeContact.remove();
+                System.out.println("Contact is removed!");
+                break;
+            }
+            else
+                System.out.println("Last Name Not Find");
         }
-        System.out.println("Contact is removed!");
         DisplayDetails();
     }
 
