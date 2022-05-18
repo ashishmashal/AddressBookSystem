@@ -43,6 +43,7 @@ public class Oprations {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails) {
+
         Contacts info = new Contacts();
         if (contactDetails.size() == 0) {
             System.out.println("Enter first name: ");
@@ -99,6 +100,28 @@ public class Oprations {
             }
         }
         return contactDetails;
+
+                Contacts info = new Contacts();
+                System.out.println("Enter first name: ");
+                info.setFirstName(scanner.next());
+                System.out.println("Enter last name: ");
+                info.setLastName(scanner.next());
+                System.out.println("Enter address: ");
+                info.setAddress(scanner.next());
+                System.out.println("Enter city name: ");
+                info.setCity(scanner.next());
+                System.out.println("Enter state name: ");
+                info.setState(scanner.next());
+                System.out.println("Enter zip code: ");
+                info.setZipCode(scanner.next());
+                System.out.println("Enter contact no.: ");
+                info.setContactNo(scanner.next());
+                System.out.println("Enter email: ");
+                info.setEmail(scanner.next());
+                contactDetails.add(info);
+                System.out.println("Contact details added!");
+                 return contactDetails;
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
