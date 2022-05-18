@@ -35,9 +35,7 @@ public class Oprations{
 
     }
     public static ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails) {
-        Stream.of(contactDetails)
-              .findAny()
-                .ifPresent(System.out::println);
+      
                 Contacts info = new Contacts();
                 System.out.println("Enter first name: ");
                 info.setFirstName(scanner.next());
