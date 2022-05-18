@@ -1,10 +1,11 @@
 package com.bridgelabz;
 
+import java.awt.*;
 import java.util.*;
 import java.util.stream.Stream;
 
 
-public class Oprations{
+public class Oprations {
     static ArrayList<Contacts> contactsDetails = new ArrayList();
     //static HashMap<String, Object> AddressBook = new HashMap<>();
     static Scanner scanner = new Scanner(System.in);
@@ -13,6 +14,11 @@ public class Oprations{
 
 
     static HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    method For Adding Multiple Address Book.
+     */
     public static void AddressBook(Oprations oprations) {
         int ans;
         do {
@@ -34,36 +40,83 @@ public class Oprations{
         } while (ans == 1);
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails) {
-        Stream.of(contactDetails)
-              .findAny()
-                .ifPresent(System.out::println);
-                Contacts info = new Contacts();
-                System.out.println("Enter first name: ");
-                info.setFirstName(scanner.next());
-                System.out.println("Enter last name: ");
-                info.setLastName(scanner.next());
-                System.out.println("Enter address: ");
-                info.setAddress(scanner.next());
-                System.out.println("Enter city name: ");
-                info.setCity(scanner.next());
-                System.out.println("Enter state name: ");
-                info.setState(scanner.next());
-                System.out.println("Enter zip code: ");
-                info.setZipCode(scanner.next());
-                System.out.println("Enter contact no.: ");
-                info.setContactNo(scanner.next());
-                System.out.println("Enter email: ");
-                info.setEmail(scanner.next());
-                contactDetails.add(info);
-                System.out.println("Contact details added!");
-                 return contactDetails;
-    }
-    public static void displayContacts(){
-        System.out.println(Arrays.asList(hashmap));
+        Contacts info = new Contacts();
+        if (contactDetails.size() == 0) {
+            System.out.println("Enter first name: ");
+            info.setFirstName(scanner.next());
+            System.out.println("Enter last name: ");
+            info.setLastName(scanner.next());
+            System.out.println("Enter address: ");
+            info.setAddress(scanner.next());
+            System.out.println("Enter city name: ");
+            info.setCity(scanner.next());
+            System.out.println("Enter state name: ");
+            info.setState(scanner.next());
+            System.out.println("Enter zip code: ");
+            info.setZipCode(scanner.next());
+            System.out.println("Enter contact no.: ");
+            info.setContactNo(scanner.next());
+            System.out.println("Enter email: ");
+            info.setEmail(scanner.next());
+            contactDetails.add(info);
+            System.out.println("Contact details added!");
+            return contactDetails;
+        } else {
+            System.out.println("Enter First Name");
+            String firstname = scanner.next();
+            /*
+            For searching the duplicate names in arraylist
+             */
+            for (Contacts contact : contactDetails) {
+                /*
+                checking the duplicate name.
+                 */
+                if (contact.getFirstName().equals(firstname)) {
+                    System.out.print("Name already present\n");
+                } else {
+                    info.setFirstName(firstname);
+                    System.out.println("Enter last name: ");
+                    info.setLastName(scanner.next());
+                    System.out.println("Enter address: ");
+                    info.setAddress(scanner.next());
+                    System.out.println("Enter city name: ");
+                    info.setCity(scanner.next());
+                    System.out.println("Enter state name: ");
+                    info.setState(scanner.next());
+                    System.out.println("Enter zip code: ");
+                    info.setZipCode(scanner.next());
+                    System.out.println("Enter contact no.: ");
+                    info.setContactNo(scanner.next());
+                    System.out.println("Enter email: ");
+                    info.setEmail(scanner.next());
+                    contactDetails.add(info);
+                    System.out.println("Contact details added!");
+                    return contactDetails;
+                }
+            }
+        }
+        return contactDetails;
     }
 
-    public void editDetails(ArrayList<Contacts> contactDetails){
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Displaying All Content From ArrayList.
+     */
+    public static void displayContacts(ArrayList<Contacts> contactDetails) {
+        for (Contacts contactsDetail : contactDetails) {
+            System.out.println("---------*********--------");
+            System.out.print(contactsDetail + " ");
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+        Method For Modifying Person Details .
+         */
+    public void editDetails(ArrayList<Contacts> contactDetails) {
         System.out.println("Enter First Name for which you want to modify info: ");
         String searchFirstName = scanner.next();
         /*  Iterate to search for first name */
@@ -72,13 +125,13 @@ public class Oprations{
              *   if matches display menu for edit
              *   else display no record found message
              */
-            if (contact.getFirstName().equals(searchFirstName)){
+            if (contact.getFirstName().equals(searchFirstName)) {
                 System.out.println("Enter the number to edit respective info: ");
                 System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City " +
                         "\n5. State \n6. Zip Code \n7. Contact No \n8. Email");
                 int index = scanner.nextInt();
                 System.out.println("Enter value to update: ");
-                switch (index){
+                switch (index) {
                     case 1:
                         String updatedFirstName = scanner.next();
                         contact.setFirstName(updatedFirstName);
@@ -116,13 +169,17 @@ public class Oprations{
                 }
                 /*  Display updated contact */
                 System.out.println("Details updated");
-            }
-            else {
+            } else {
                 System.out.println("No record found!");
             }
         }
     }
-    public void deleteContact(ArrayList<Contacts> contactDetails){
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+        Delete The Person From Arraylist.
+         */
+    public void deleteContact(ArrayList<Contacts> contactDetails) {
         System.out.println("Enter email for which you want to delete contact: ");
         String searchEmail = scanner.next();
         Iterator<Contacts> removeContact = contactDetails.iterator();
@@ -130,20 +187,24 @@ public class Oprations{
          *   condition holds true till there is single element
          *   in the List using hasNext() method
          */
-        while (removeContact.hasNext()){
+        while (removeContact.hasNext()) {
             /*  Move cursor to next element */
             Contacts nextElement = removeContact.next();
             if (nextElement.getEmail().equals(searchEmail)) {
                 removeContact.remove();
                 System.out.println("Contact is removed!");
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Contact not found.");
             }
         }
     }
-    public void MenuOption(Oprations oprations , ArrayList<Contacts> contactDetails ) {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+        Displaying the Menu Options.
+         */
+    public void MenuOption(Oprations oprations, ArrayList<Contacts> contactDetails) {
         System.out.println("Enter a number to perform action: ");
         int menu, ans;
         do {
@@ -165,7 +226,7 @@ public class Oprations{
                     break;
                 case 4:
                     /*  Display contact details */
-                    oprations.displayContacts();
+                    oprations.displayContacts(contactDetails);
                     break;
                 case 5:
                     System.out.println("Exit!");
