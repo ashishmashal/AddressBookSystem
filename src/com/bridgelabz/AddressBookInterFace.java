@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
  interface AddressBookInterFace {
@@ -25,4 +26,6 @@ import java.util.List;
      void searchByCityOrState(ArrayList<Contacts> contactDetails);
 
      public  List<Contacts> CountPersonFromSameCityOrState(String name);
-}
+
+     public void sortContactsByPersonName(HashMap<String, ArrayList<Contacts>> hashmap);
+ }
