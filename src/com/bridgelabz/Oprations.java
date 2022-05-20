@@ -1,12 +1,12 @@
 package com.bridgelabz;
 
-import java.awt.*;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 
-public class Oprations {
-    static ArrayList<Contacts> contactsDetails = new ArrayList();
+public class Oprations implements AddressBookInterFace {
+    static ArrayList<String> contactsDetails = new ArrayList();
+
     //static HashMap<String, Object> AddressBook = new HashMap<>();
     static Scanner scanner = new Scanner(System.in);
     static Contacts contacts = new Contacts();
@@ -19,12 +19,12 @@ public class Oprations {
     /*
     method For Adding Multiple Address Book.
      */
-    public static void AddressBook(Oprations oprations) {
+    public void AddressBook(Oprations oprations) {
         int ans;
         do {
             System.out.println("Enter Name For Address Book");
             String AddressBookName = scanner.next();
-
+            contactsDetails.add(AddressBookName);
             // addressBookSystem.MenuOption(addressBookSystem,contactsDetails);
             if (hashmap.containsKey(AddressBookName)) {
                 System.out.println("The AddressBook already contains");
@@ -35,14 +35,17 @@ public class Oprations {
                 hashmap.put(AddressBookName, contactDetails);
             }
             System.out.println("AddressBook Added" + hashmap + " ");
-            System.out.println("Do You Want To Continue the Press 1");
+            System.out.println("Do You Want To Continue in AddressBook the Press 1 ");
             ans = scanner.nextInt();
         } while (ans == 1);
+    }
 
+    public void displayAddressBook() {
+        System.out.println("AddressBooks Are:" + hashmap + " ");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails) {
+    public ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails) {
         Contacts info = new Contacts();
         if (contactDetails.size() == 0) {
             System.out.println("Enter first name: ");
@@ -105,9 +108,9 @@ public class Oprations {
     /*
     Displaying All Content From ArrayList.
      */
-    public static void displayContacts(ArrayList<Contacts> contactDetails) {
+    public void displayContacts(ArrayList<Contacts> contactDetails) {
         for (Contacts contactsDetail : contactDetails) {
-            System.out.println("---------*********--------");
+            System.out.println("-----------------------***************************-----------------------------------");
             System.out.print(contactsDetail + " ");
         }
     }
@@ -127,8 +130,7 @@ public class Oprations {
              */
             if (contact.getFirstName().equals(searchFirstName)) {
                 System.out.println("Enter the number to edit respective info: ");
-                System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City " +
-                        "\n5. State \n6. Zip Code \n7. Contact No \n8. Email");
+                System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City " + "\n5. State \n6. Zip Code \n7. Contact No \n8. Email");
                 int index = scanner.nextInt();
                 System.out.println("Enter value to update: ");
                 switch (index) {
@@ -201,44 +203,93 @@ public class Oprations {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /*
+   Methods For Search Person in multiple Address Book.
+    */
+    public List<Contacts> SearchInMultipleAddressBook(String name) {
+        for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet()) {
+            for (Contacts v : entry.getValue()) {
+                if (v.getCity().equals(name) || v.getState().equals(name)) {
+                    System.out.println("\n Record Found in=>" + entry.getKey());
+                    System.out.println("\tPersons Details Are=>" + v);
+                }
+                else {
+                    System.out.printf("No record found:");
+                }
+            }
+        }
+        return null;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /*
-        Displaying the Menu Options.
+        Displaying the Menu Options Person.
          */
     public void MenuOption(Oprations oprations, ArrayList<Contacts> contactDetails) {
-        System.out.println("Enter a number to perform action: ");
+        System.out.println("Enter a number to perform For Persons action: ");
         int menu, ans;
         do {
-            System.out.println(" \n1. Add details \n2. Edit details \n3. Delete details \n4. Display details \n5. Exit");
+            System.out.println(" \n1. Add details \n" + "2. Edit details \n" + "3. Delete details \n" + "4. Display details \n" + "5. Exit");
+            System.out.println("Enter Option");
+            menu = scanner.nextInt();
+            switch (menu) {
+                case 1 ->
+                    /*  Add contact details in address book */
+                        oprations.addDetails(contactDetails);
+                case 2 ->
+                    /*  Edit contact details in address book */
+                        oprations.editDetails(contactDetails);
+                case 3 ->
+                    /*  Delete contact details */
+                        oprations.deleteContact(contactDetails);
+                case 4 ->
+                    /*  Display contact details */
+                        oprations.displayContacts(contactDetails);
+                case 5 ->
+                    /* Exiting The MenuOption */
+                        System.out.println("Exit!");
+
+                default -> System.out.println("Invalid option selected.");
+            }
+            System.out.println("Do You Want To continue In MenuOption ......If Yes The Press '1' ");
+            ans = scanner.nextInt();
+        } while (ans == 1);
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void AddressBookMenu(Oprations oprations) {
+        System.out.println("Enter a number to perform AddressBook actions: ");
+        int menu, ans;
+        do {
+            System.out.println(" \n1. Add AddressBook \n2. Display AddressBook \n3.Search In Multiple AddressBook \n4.Exit");
             System.out.println("Enter Option");
             menu = scanner.nextInt();
             switch (menu) {
                 case 1:
-                    /*  Add contact details in address book */
-                    oprations.addDetails(contactDetails);
+                    AddressBook(oprations);
                     break;
                 case 2:
-                    /*  Edit contact details in address book */
-                    oprations.editDetails(contactDetails);
+                    displayAddressBook();
                     break;
                 case 3:
-                    /*  Delete contact details */
-                    oprations.deleteContact(contactDetails);
+                    System.out.println("Enter city name or state name to search records");
+                    String name = scanner.next();
+                    SearchInMultipleAddressBook(name);
                     break;
                 case 4:
-                    /*  Display contact details */
-                    oprations.displayContacts(contactDetails);
-                    break;
-                case 5:
-                    System.out.println("Exit!");
-                    break;
-                default:
-                    System.out.println("Invalid option selected.");
+                    System.out.println("Exit");
                     break;
             }
-            System.out.println("Do Ypu Want To continue ......If Yes The Press '1' ");
+
+            System.out.printf("Do You Want TO Continue In Address Book Menu Option if Yes Enter \t 1 For continue or Else Enter \t 2 For Exit. ");
             ans = scanner.nextInt();
         } while (ans == 1);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 }
+
+

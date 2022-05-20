@@ -8,7 +8,7 @@ public class AddressBookSystem extends Oprations {
         System.out.println("Welcome to Address Book Program!");
         Oprations oprations = new Oprations();
         System.out.println("-----------------------------*****-------------------------");
-        AddressBook(oprations);
+        oprations.AddressBookMenu(oprations);
 
     }
 }
