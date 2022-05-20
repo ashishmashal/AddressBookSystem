@@ -1,16 +1,13 @@
 package com.bridgelabz;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
-public class Oprations implements AddressBookInterFace {
-    static ArrayList<String> contactsDetails = new ArrayList();
+public class Operations implements AddressBookInterFace {
+    static ArrayList<String> contactsDetails = new ArrayList<>();
 
     //static HashMap<String, Object> AddressBook = new HashMap<>();
     static Scanner scanner = new Scanner(System.in);
-    static Contacts contacts = new Contacts();
-    static int counter;
 
 
     static HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
@@ -19,7 +16,7 @@ public class Oprations implements AddressBookInterFace {
     /*
     method For Adding Multiple Address Book.
      */
-    public void AddressBook(Oprations oprations) {
+    public void AddressBook(Operations oprations) {
         int ans;
         do {
             System.out.println("Enter Name For Address Book");
@@ -130,44 +127,51 @@ public class Oprations implements AddressBookInterFace {
              */
             if (contact.getFirstName().equals(searchFirstName)) {
                 System.out.println("Enter the number to edit respective info: ");
-                System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City " + "\n5. State \n6. Zip Code \n7. Contact No \n8. Email");
+                System.out.println("""
+                        1. First Name\s
+                        2. Last Name\s
+                        3. Address\s
+                        4. City\s
+                        5. State\s
+                        6. Zip Code\s
+                        7. Contact No\s
+                        8. Email""");
                 int index = scanner.nextInt();
                 System.out.println("Enter value to update: ");
                 switch (index) {
-                    case 1:
+                    case 1 -> {
                         String updatedFirstName = scanner.next();
                         contact.setFirstName(updatedFirstName);
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         String updatedLastName = scanner.next();
                         contact.setLastName(updatedLastName);
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         String updatedAddress = scanner.next();
                         contact.setAddress(updatedAddress);
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         String updatedCity = scanner.next();
                         contact.setCity(updatedCity);
-                        break;
-                    case 5:
+                    }
+                    case 5 -> {
                         String updatedState = scanner.next();
                         contact.setState(updatedState);
-                        break;
-                    case 6:
+                    }
+                    case 6 -> {
                         String updatedZipCode = scanner.next();
                         contact.setZipCode(updatedZipCode);
-                        break;
-                    case 7:
+                    }
+                    case 7 -> {
                         String updatedContact = scanner.next();
                         contact.setContactNo(updatedContact);
-                        break;
-                    case 8:
+                    }
+                    case 8 -> {
                         String updatedEmail = scanner.next();
                         contact.setEmail(updatedEmail);
-                        break;
-                    default:
-                        System.out.println("Invalid number!");
+                    }
+                    default -> System.out.println("Invalid number!");
                 }
                 /*  Display updated contact */
                 System.out.println("Details updated");
@@ -214,11 +218,35 @@ public class Oprations implements AddressBookInterFace {
                     System.out.println("\tPersons Details Are=>" + v);
                 }
                 else {
-                    System.out.printf("No record found:");
+                    System.out.println("No record found:");
                 }
             }
         }
         return null;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Search Person in Specified AddressBook.
+     */
+    public void searchByCityOrState(ArrayList<Contacts> contactDetails) {
+        int flag = 0;
+        ArrayList<Contacts> match = new ArrayList<>();
+        System.out.println("Enter First Name");
+        String CityOrstate = scanner.next();
+        for (Contacts contact : contactDetails) {
+            if (contact.getCity().equals(CityOrstate) || contact.getState().equals(CityOrstate)) {
+                flag = 1;
+                match.add(contact);
+            }
+        }
+        if (flag == 1) {
+            System.out.println("...Match Found...");
+            for (Contacts p : match) {
+                System.out.println(p);
+            }
+        } else {
+            System.out.println("Match Not Found!!!");
+        }
     }
 
 
@@ -226,11 +254,17 @@ public class Oprations implements AddressBookInterFace {
         /*
         Displaying the Menu Options Person.
          */
-    public void MenuOption(Oprations oprations, ArrayList<Contacts> contactDetails) {
+    public void MenuOption(Operations oprations, ArrayList<Contacts> contactDetails) {
         System.out.println("Enter a number to perform For Persons action: ");
         int menu, ans;
         do {
-            System.out.println(" \n1. Add details \n" + "2. Edit details \n" + "3. Delete details \n" + "4. Display details \n" + "5. Exit");
+            System.out.println("""
+                    \s
+                    1. Add details\s
+                    2. Edit details\s
+                    3. Delete details\s
+                    4. Display details\s
+                    5. Exit""");
             System.out.println("Enter Option");
             menu = scanner.nextInt();
             switch (menu) {
@@ -247,6 +281,9 @@ public class Oprations implements AddressBookInterFace {
                     /*  Display contact details */
                         oprations.displayContacts(contactDetails);
                 case 5 ->
+                        /* Search Contact Details */
+                        oprations.searchByCityOrState(contactDetails);
+                case 6->
                     /* Exiting The MenuOption */
                         System.out.println("Exit!");
 
@@ -258,7 +295,7 @@ public class Oprations implements AddressBookInterFace {
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void AddressBookMenu(Oprations oprations) {
+    public void AddressBookMenu(Operations oprations) {
         System.out.println("Enter a number to perform AddressBook actions: ");
         int menu, ans;
         do {
@@ -266,23 +303,17 @@ public class Oprations implements AddressBookInterFace {
             System.out.println("Enter Option");
             menu = scanner.nextInt();
             switch (menu) {
-                case 1:
-                    AddressBook(oprations);
-                    break;
-                case 2:
-                    displayAddressBook();
-                    break;
-                case 3:
+                case 1 -> AddressBook(oprations);
+                case 2 -> displayAddressBook();
+                case 3 -> {
                     System.out.println("Enter city name or state name to search records");
                     String name = scanner.next();
                     SearchInMultipleAddressBook(name);
-                    break;
-                case 4:
-                    System.out.println("Exit");
-                    break;
+                }
+                case 4 -> System.out.println("Exit");
             }
 
-            System.out.printf("Do You Want TO Continue In Address Book Menu Option if Yes Enter \t 1 For continue or Else Enter \t 2 For Exit. ");
+            System.out.print("Do You Want TO Continue In Address Book Menu Option if Yes Enter \t 1 For continue or Else Enter \t 2 For Exit. ");
             ans = scanner.nextInt();
         } while (ans == 1);
     }

@@ -3,22 +3,24 @@ package com.bridgelabz;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface AddressBookInterFace {
-    public void AddressBook(Oprations oprations);
+ interface AddressBookInterFace {
+     void AddressBook(Operations oprations);
 
-    public void displayAddressBook();
+     void displayAddressBook();
 
-    public ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails);
+     ArrayList<Contacts> addDetails(ArrayList<Contacts> contactDetails);
 
-    public void displayContacts(ArrayList<Contacts> contactDetails);
+     void displayContacts(ArrayList<Contacts> contactDetails);
 
-    public void editDetails(ArrayList<Contacts> contactDetails);
+     void editDetails(ArrayList<Contacts> contactDetails);
 
-    public void deleteContact(ArrayList<Contacts> contactDetails);
+     void deleteContact(ArrayList<Contacts> contactDetails);
 
-    public void MenuOption(Oprations oprations, ArrayList<Contacts> contactDetails);
+     void MenuOption(Operations oprations, ArrayList<Contacts> contactDetails);
 
-    public void AddressBookMenu(Oprations oprations);
+     void AddressBookMenu(Operations oprations);
 
-    public List<Contacts> SearchInMultipleAddressBook(String name);
+     List<Contacts> SearchInMultipleAddressBook(String name);
+
+     void searchByCityOrState(ArrayList<Contacts> contactDetails);
 }

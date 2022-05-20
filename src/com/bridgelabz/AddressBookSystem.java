@@ -3,10 +3,10 @@ package com.bridgelabz;
 import java.lang.*;
 
 
-public class AddressBookSystem extends Oprations {
+public class AddressBookSystem extends Operations {
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program!");
-        Oprations oprations = new Oprations();
+        Operations oprations = new Operations();
         System.out.println("-----------------------------*****-------------------------");
         oprations.AddressBookMenu(oprations);
 
