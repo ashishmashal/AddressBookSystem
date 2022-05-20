@@ -23,4 +23,6 @@ import java.util.List;
      List<Contacts> SearchInMultipleAddressBook(String name);
 
      void searchByCityOrState(ArrayList<Contacts> contactDetails);
+
+     public  List<Contacts> CountPersonFromSameCityOrState(String name);
 }

@@ -216,14 +216,31 @@ public class Operations implements AddressBookInterFace {
                 if (v.getCity().equals(name) || v.getState().equals(name)) {
                     System.out.println("\n Record Found in=>" + entry.getKey());
                     System.out.println("\tPersons Details Are=>" + v);
-                }
-                else {
+                } else {
                     System.out.println("No record found:");
                 }
             }
         }
         return null;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Counting how many persons belonging from same city or state from Multiple AddressBook.
+     */
+    public List<Contacts> CountPersonFromSameCityOrState(String name) {
+        int count = 0;
+        for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet()) {
+            for (Contacts v : entry.getValue()) {
+                if (v.getCity().equals(name) || v.getState().equals(name)) {
+                    count++;
+                }
+            }
+        }
+        System.out.printf(count + "\tPersons belonging From => \n " + name);
+        return null;
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
     Search Person in Specified AddressBook.
@@ -281,9 +298,9 @@ public class Operations implements AddressBookInterFace {
                     /*  Display contact details */
                         oprations.displayContacts(contactDetails);
                 case 5 ->
-                        /* Search Contact Details */
+                    /* Search Contact Details */
                         oprations.searchByCityOrState(contactDetails);
-                case 6->
+                case 6 ->
                     /* Exiting The MenuOption */
                         System.out.println("Exit!");
 
@@ -298,8 +315,15 @@ public class Operations implements AddressBookInterFace {
     public void AddressBookMenu(Operations oprations) {
         System.out.println("Enter a number to perform AddressBook actions: ");
         int menu, ans;
+
         do {
-            System.out.println(" \n1. Add AddressBook \n2. Display AddressBook \n3.Search In Multiple AddressBook \n4.Exit");
+            System.out.println("""
+                    \s
+                    1. Add AddressBook\s
+                    2. Display AddressBook\s
+                    3.Search In Multiple AddressBook\s
+                    4.Count Person By City Or State\s
+                    5.Exit""");
             System.out.println("Enter Option");
             menu = scanner.nextInt();
             switch (menu) {
@@ -310,7 +334,14 @@ public class Operations implements AddressBookInterFace {
                     String name = scanner.next();
                     SearchInMultipleAddressBook(name);
                 }
-                case 4 -> System.out.println("Exit");
+                case 4 -> {
+                    System.out.println("Enter city name or state name to Count Persons belonging from same city or state");
+                    String countName = scanner.next();
+                    CountPersonFromSameCityOrState(countName);
+                }
+                case 5->
+                System.out.println("Exit");
+
             }
 
             System.out.print("Do You Want TO Continue In Address Book Menu Option if Yes Enter \t 1 For continue or Else Enter \t 2 For Exit. ");
