@@ -1,9 +1,7 @@
 package com.bridgelabz;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static java.util.Arrays.stream;
 
 
 public class Operations implements AddressBookInterFace {
@@ -257,7 +255,24 @@ public class Operations implements AddressBookInterFace {
             List<Contacts> sortedContacts = addressBookMapEntry.getValue().stream().sorted(Comparator.comparing(contactInfo -> contactInfo.getFirstName() + contactInfo.getLastName())).toList();
             System.out.println("Sorted Contacts By Name : ");
             for (Contacts item : sortedContacts) {
+                System.out.println(addressBookMapEntry.getKey());
                 System.out.println(item.toString());
+            }
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Sorting
+     */
+    public void sortContactsByZipOrCityOrState(HashMap<String, ArrayList<Contacts>> hashmap){
+        for (Map.Entry<String, ArrayList<Contacts>> addressBookMapEntry : hashmap.entrySet()) {
+            List<Contacts> sortedContacts = addressBookMapEntry.getValue().stream().sorted(Comparator.comparing(contactInfo -> contactInfo.getZipCode() + contactInfo.getCity() + contactInfo.getState())).toList();
+            System.out.println("Sorted Contacts By Zip : ");
+
+
+            for (Contacts item : sortedContacts) {
+                System.out.println(addressBookMapEntry.getKey());
+                System.out.println(item.toString() + " ");
             }
         }
     }
@@ -344,7 +359,8 @@ public class Operations implements AddressBookInterFace {
                     3.Search In Multiple AddressBook\s
                     4.Count Person By City Or State\s
                     5.Sort By Name.
-                    6.Exit""");
+                    6.Sorting By Zipcode
+                    7.Exit""");
             System.out.println("Enter Option");
             menu = scanner.nextInt();
             switch (menu) {
@@ -363,11 +379,13 @@ public class Operations implements AddressBookInterFace {
                 case 5->
                         sortContactsByPersonName(hashmap);
                 case 6->
+                        sortContactsByZipOrCityOrState(hashmap);
+                case 7->
                 System.out.println("Exit");
 
             }
 
-            System.out.print("Do You Want TO Continue In Address Book Menu Option if Yes Enter \n 1 For continue or Else Enter \n 2 For Exit. ");
+            System.out.print("Do You Want TO Continue In Address Book Menu Option if Yes Enter \n 1 For continue or Else Enter \n 2 For Exit.\n ");
             ans = scanner.nextInt();
         } while (ans == 1);
     }

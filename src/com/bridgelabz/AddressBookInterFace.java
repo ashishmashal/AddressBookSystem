@@ -28,4 +28,6 @@ import java.util.List;
      public  List<Contacts> CountPersonFromSameCityOrState(String name);
 
      public void sortContactsByPersonName(HashMap<String, ArrayList<Contacts>> hashmap);
+
+     public void sortContactsByZipOrCityOrState(HashMap<String, ArrayList<Contacts>> hashmap);
  }
